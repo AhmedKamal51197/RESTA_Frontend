@@ -1,0 +1,127 @@
+.DetailsItem form {
+    position: relative;
+}
+
+.DetailsItem .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    color: red !important;
+}
+
+.DetailsItem .modal-body>.item {
+    gap: 15px;
+    display: flex;
+}
+
+.DetailsItem .modal-body>.item .item-img {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.DetailsItem .modal-body>.item .item-text {
+    flex: 1;
+    gap: 5px;
+    display: flex;
+    font-size: 12px;
+    flex-direction: column;
+}
+
+.DetailsItem .modal-body>.item .item-text p {
+    margin: 0;
+}
+
+.DetailsItem .modal-body>.item .item-text p {
+    font-size: 10px;
+}
+
+.DetailsItem .modal-body>.quantity {
+    gap: 15px;
+    display: flex;
+    padding-block: 10px;
+    align-items: center;
+}
+
+.DetailsItem .modal-body>.quantity input {
+    width: 30px;
+    text-align: center;
+}
+
+.DetailsItem .modal-body>.quantity svg {
+    color: #0b5ed7;
+    font-size: 20px;
+}
+
+.DetailsItem .modal-body>.quantity svg:active {
+    transform: scale(0.95);
+}
+
+.DetailsItem .modal-body>.sizes {
+    padding-bottom: 10px;
+}
+
+.DetailsItem .modal-body>.sizes label {
+    margin-bottom: 5px;
+}
+
+.DetailsItem .modal-body>.sizes>div {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.DetailsItem .modal-body>.sizes .size {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.DetailsItem .modal-body>.addons .addon {
+    gap: 15px;
+    display: flex;
+    font-size: 10px;
+}
+
+.DetailsItem .modal-body>.addons .addon .addon-img {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.DetailsItem .modal-body>.addons .addon .addon-text .quantity {
+    gap: 15px;
+    display: flex;
+    padding-block: 10px;
+    align-items: center;
+}
+
+.DetailsItem .modal-body>.addons .addon .addon-text .quantity input {
+    width: 20px;
+    text-align: center;
+}
+
+.DetailsItem .modal-body>.addons .addon .addon-text .quantity svg {
+    color: #0b5ed7;
+    font-size: 16px;
+}
+
+.DetailsItem .modal-body>.notes label {
+    margin-bottom: 5px;
+}
+
+.DetailsItem .modal-body>.notes textarea::placeholder {
+    font-size: 12px;
+}
+
+.DetailsItem .modal-body button {
+    border-radius: 25px;
+}
+
+.DetailsItem .modal-body button {
+    color: #ffffff;
+    background-color: #0b5ed7;
+}

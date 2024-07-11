@@ -1,0 +1,36 @@
+.cart-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-item img {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.cart-details {
+    flex-grow: 1;
+}
+
+.empty-cart{
+    translate:100px;
+    margin-bottom: 30px;
+}
+
+.quant{
+    translate: 5px;
+    z-index: 1;
+}
+
+.border{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
