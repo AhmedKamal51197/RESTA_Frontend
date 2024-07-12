@@ -207,7 +207,7 @@ function Extras() {
                     value={extra.category_id}
                     required
                   >
-                    <option value="">choose</option>
+                    <option value="choose">choose</option>
                     {categories.map(category => (
                       <option key={category.id} value={category.id}>
                         {category.name}

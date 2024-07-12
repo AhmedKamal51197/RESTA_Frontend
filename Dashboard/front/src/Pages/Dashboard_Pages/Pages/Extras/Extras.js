@@ -63,18 +63,6 @@ export default function Extra() {
       key: "cost",
     },
     {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      render: (text, record) => (
-        <img
-          src={`http://127.0.0.1:8000/storage/${record.image}`}
-          alt={record.name}
-          style={{ width: "70px"}}
-        />
-      ),
-    },
-    {
       title: "STATUS",
       key: "status",
       render: (text, item) =>
@@ -87,6 +75,18 @@ export default function Extra() {
             Inactive
           </span>
         ),
+    },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (text, record) => (
+        <img
+          src={`http://127.0.0.1:8000/storage/${record.image}`}
+          alt={record.name}
+          style={{ width: "70px"}}
+        />
+      ),
     },
     {
       title: "ACTION",

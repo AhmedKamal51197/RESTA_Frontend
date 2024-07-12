@@ -5,9 +5,13 @@ import { FaXmark } from "react-icons/fa6";
 import { HiXMark } from "react-icons/hi2";
 import instance from '../../../../axiosConfig/instance';
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from 'react-redux';
+import { update } from "../../../../Store/action";
 
 function Addons() {
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+  const updated = useSelector((state) => state.updated);
   const [addon, setAddon] = useState({
     name: "",
     description: "",
@@ -19,12 +23,13 @@ function Addons() {
   });
 
   const [errors, setErrors] = useState({
-    nameError: "",
-    descriptionError: "",
-    typeError: "",
-    category_idError: "",
-    imageError: "",
-    statusError: "",
+    name: "",
+    description: "",
+    type: "",
+    category_id: "",
+    image: "",
+    status: "",
+    cost: ""
   });
 
   const closeModel = () => {
@@ -57,6 +62,7 @@ function Addons() {
     const formData = new FormData();
     formData.append("name", addon.name);
     formData.append("description", addon.description);
+    formData.append("type", addon.type);
     formData.append("cost", addon.cost);
     formData.append("category_id", addon.category_id);
     formData.append("status", addon.status);
@@ -85,7 +91,8 @@ function Addons() {
         })
         .then((response) => {
           Swal.fire("Saved!", "The addons has been saved.", "success");
-          // handle success (e.g., show a success message, close the modal, etc.)
+          dispatch(update(!updated));
+          closeModel();       
         })
         .catch((error) => {
           if (error.response && error.response.status === 422) {
@@ -143,6 +150,7 @@ function Addons() {
                     onChange={handleChange}
                     required
                   />
+                  {errors.name && <div className="text-danger">{errors.name}</div>}
                 </div>
               </div>
 
@@ -160,6 +168,7 @@ function Addons() {
                     onChange={handleChange}
                     required
                   />
+                  {errors.cost && <div className="text-danger">{errors.cost}</div>}
                 </div>
               </div>
 
@@ -177,6 +186,7 @@ function Addons() {
                     onChange={handleChange}
                     required
                   />
+                  {errors.description && <div className="text-danger">{errors.description}</div>}
                 </div>
               </div>
 
@@ -200,6 +210,7 @@ function Addons() {
                       </option>
                     ))}
                   </select>
+                  {errors.category_id && <div className="text-danger">{errors.category_id}</div>}
                 </div>
               </div>
               <div className="col-6">
@@ -215,6 +226,7 @@ function Addons() {
                     onChange={handleChange}
                     required
                   />
+                  {errors.image && <div className="text-danger">{errors.image}</div>}
                 </div>
               </div>
 
@@ -279,6 +291,7 @@ function Addons() {
                       <span>in active</span>
                     </div>
                   </div>
+                  {errors.status && <div className="text-danger">{errors.status}</div>}
                 </div>
               </div>
             </div>
