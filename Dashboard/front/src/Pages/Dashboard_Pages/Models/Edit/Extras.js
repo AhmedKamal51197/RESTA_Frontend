@@ -10,7 +10,6 @@ function EditExtra({ id }) {
     category_id: "",
     cost: "",
     description: "",
-    id: "",
     image: null,
     name: "",
     status: "",
@@ -24,6 +23,7 @@ function EditExtra({ id }) {
     category_id: "",
     image: "",
     status: "",
+    cost: "",
   });
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function EditExtra({ id }) {
   };
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
 
     if (name === "item_type") {
       setExtra((prevExtra) => ({
@@ -167,7 +167,7 @@ function EditExtra({ id }) {
               <div className="col-6">
                 <div className="mb-3">
                   <label htmlFor="cost" className="form-label">
-                    Cost <span className="star">*</span>
+                    Price <span className="star">*</span>
                   </label>
                   <input
                     type="text"
