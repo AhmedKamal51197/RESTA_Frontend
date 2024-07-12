@@ -11,7 +11,7 @@ function EditExtra({ id }) {
     cost: "",
     description: "",
     id: "",
-    image: null, // Changed default value to null for better handling
+    image: null,
     name: "",
     status: "",
     type: ""

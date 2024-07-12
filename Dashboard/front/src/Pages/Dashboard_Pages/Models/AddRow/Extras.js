@@ -4,15 +4,13 @@ import { FaCheckCircle } from "react-icons/fa";
 import { HiXMark } from "react-icons/hi2";
 import instance from '../../../../axiosConfig/instance';
 import Swal from "sweetalert2";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { update } from "../../../../Store/action";
-
-
 
 function Extras() {
   const [categories, setCategories] = useState([]);
-  const dispatch=useDispatch()
-  const updated=useSelector((state) => state.updated);
+  const dispatch = useDispatch();
+  const updated = useSelector((state) => state.updated);
   const [extra, setExtra] = useState({
     name: "",
     description: "",
@@ -20,16 +18,17 @@ function Extras() {
     category_id: "",
     image: "",
     status: "",
-    cost:"",
+    cost: "",
   });
 
   const [errors, setErrors] = useState({
-    nameError: "",
-    descriptionError: "",
-    typeError: "",
-    category_idError: "",
-    imageError: "",
-    statusError: "",
+    name: "",
+    description: "",
+    type: "",
+    category_id: "",
+    image: "",
+    status: "",
+    cost: ""
   });
 
   const closeModel = () => {
@@ -58,7 +57,7 @@ function Extras() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
     formData.append("name", extra.name);
     formData.append("description", extra.description);
@@ -69,7 +68,7 @@ function Extras() {
     if (extra.image) {
       formData.append("image", extra.image);
     }
-    
+
     Swal.fire({
       title: "Are you sure?",
       text: "Do you want to save the changes?",
@@ -84,38 +83,33 @@ function Extras() {
         instance.post('/api/admin/extras', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("AdminToken")) //the token is a variable which holds the token
+            Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("AdminToken"))
           }
-        },
-      dispatch(update(!updated))
-    )
-        .then((response) => {
-          Swal.fire("Saved!", "The extra has been saved.", "success");
-          // handle success (e.g., show a success message, close the modal, etc.)
         })
-        .catch((error) => {
-          if (error.response && error.response.status === 422) {
-            // console.log("Validation error:", error.response.data.errors);
-            setErrors(error.response.data.errors);
-            Swal.fire("Error!", "Validation error occurred.", "error");
-          } else {
-            // console.error("Error submitting form:", error);
-            Swal.fire("Error!", "An error occurred while submitting the form.", "error");
-          }
-        });
+          .then((response) => {
+            Swal.fire("Saved!", "The extra has been saved.", "success");
+            dispatch(update(!updated));
+            closeModel();
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 422) {
+              setErrors(error.response.data.errors);
+              Swal.fire("Error!", "Validation error occurred.", "error");
+            } else {
+              Swal.fire("Error!", "An error occurred while submitting the form.", "error");
+            }
+          });
       }
     });
   };
-  
 
-  useEffect(() =>{
+  useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await instance.get('api/categories');
-        // console.log(response.data)
         setCategories(response.data.data);
       } catch (error) {
-        // console.error('Error fetching categories:', error);
+        console.error('Error fetching categories:', error);
       }
     };
 
@@ -148,6 +142,7 @@ function Extras() {
                     onChange={handleChange}
                     required
                   />
+                  {errors.name && <div className="text-danger">{errors.name}</div>}
                 </div>
               </div>
               <div className="col-6">
@@ -164,6 +159,7 @@ function Extras() {
                     onChange={handleChange}
                     required
                   />
+                  {errors.cost && <div className="text-danger">{errors.cost}</div>}
                 </div>
               </div>
               <div className="col-6">
@@ -189,12 +185,13 @@ function Extras() {
                         name="item_type"
                         id="non-veg"
                         onChange={handleChange}
-                        checked={extra.type === "non-vegetarian"}            
+                        checked={extra.type === "non-vegetarian"}
                         required
                       />
                       <span>non veg</span>
                     </div>
                   </div>
+                  {errors.type && <div className="text-danger">{errors.type}</div>}
                 </div>
               </div>
               <div className="col-6">
@@ -202,7 +199,7 @@ function Extras() {
                   <label htmlFor="category" className="form-label">
                     category <span className="star">*</span>
                   </label>
-                   <select
+                  <select
                     className="form-control"
                     name="category_id"
                     id="category"
@@ -210,13 +207,14 @@ function Extras() {
                     value={extra.category_id}
                     required
                   >
-                    <option value="-1">choose</option>
+                    <option value="">choose</option>
                     {categories.map(category => (
                       <option key={category.id} value={category.id}>
                         {category.name}
                       </option>
                     ))}
                   </select>
+                  {errors.category_id && <div className="text-danger">{errors.category_id}</div>}
                 </div>
               </div>
               <div className="col-6">
@@ -233,6 +231,7 @@ function Extras() {
                     onChange={handleChange}
                     required
                   />
+                  {errors.description && <div className="text-danger">{errors.description}</div>}
                 </div>
               </div>
               <div className="col-6">
@@ -261,9 +260,10 @@ function Extras() {
                         checked={extra.status === 0}
                         required 
                       />
-                      <span>in active</span>
+                      <span>inactive</span>
                     </div>
                   </div>
+                  {errors.status && <div className="text-danger">{errors.status}</div>}
                 </div>
               </div>
               <div className="col-6">
@@ -278,6 +278,7 @@ function Extras() {
                     id="image"
                     onChange={handleChange}
                   />
+                  {errors.image && <div className="text-danger">{errors.image}</div>}
                 </div>
               </div>
             </div>

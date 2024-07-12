@@ -20,46 +20,32 @@ const handleDisplayAddModel = () => {
 export default function Meals() {
   const componentRef = useRef();
   const [meals, setMeals] = useState([]);
+  const [pagination, setPagination] = useState({});
 
   useEffect(() => {
     fetchMeals();
   }, []);
 
-  const  fetchMeals = () => {
-    instance.get("/api/admin/meals")
+  const fetchMeals = (pageNumber = 1) => {
+    instance.get(`/api/admin/meals?page=${pageNumber}`, {
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("AdminToken")) 
+      }
+     })
       .then((res) => {
-        console.log("Meals",res.data.data);
         setMeals(res.data.data);
+        setPagination(res.data.pagination);
+
       })
       .catch((err) => {
         console.log(err);
       });
   };
   
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You will not be able to recover the deleted record!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        instance.delete(`/api/admin/meals/${id}`)
-          .then(() => {
-            Swal.fire("Deleted!", "The meal has been deleted.", "success");
-            setMeals(prevMeals => prevMeals.filter(meal => meal.id !== id));
-          })
-          .catch((error) => {
-            Swal.fire("Error!", "An error occurred while deleting the meal.", "error");
-            console.error("Error deleting meal:", error);
-          });
-      }
-    });
+  const handlePageChange = (pageNumber) => {
+    fetchMeals(pageNumber);
   };
+
   const columns = [
     {
       title: "NAME",
@@ -125,20 +111,11 @@ export default function Meals() {
           >
             <FiEdit />
           </Link>
-  
-          <Link
-            to="#"
-            className="trashIcon"
-            data-tooltip="delete"
-            onClick={() => handleDelete(item.id)}
-            style={{ "--c": "#F15353", "--bg": "#FECACA" }}
-          >
-            <BiTrash />
-          </Link>
         </>
       ),
     },
   ];
+
   return (
     <div className="DataTable">
       {/* breadcrumb feature */}
@@ -148,7 +125,15 @@ export default function Meals() {
       <Filtration componentRef={componentRef} />
 
       <div className="tableItems" ref={componentRef}>
-        <Table columns={columns} dataSource={meals} pagination={true} />
+        <Table columns={columns} 
+        dataSource={meals}  
+        pagination={{
+            current: pagination.current_page,
+            pageSize: pagination.per_page,
+            total: pagination.total,
+            onChange: handlePageChange,
+        }} 
+        />
       </div>
     </div>
   );
