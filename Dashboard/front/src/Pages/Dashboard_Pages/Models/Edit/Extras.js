@@ -10,7 +10,7 @@ function EditExtra({ id }) {
     category_id: "",
     cost: "",
     description: "",
-    image: null,
+    image: "",
     name: "",
     status: "",
     type: ""
@@ -80,7 +80,7 @@ function EditExtra({ id }) {
     formData.append("cost", extra.cost);
     formData.append("category_id", extra.category_id);
     formData.append("status", extra.status);
-    if (extra.image == null) {
+    if (extra.image) {
       formData.append("image", extra.image);
     }
   
@@ -116,7 +116,6 @@ function EditExtra({ id }) {
       }
     }
   };
-  
 
   useEffect(() => {
     const fetchCategories = async () => {

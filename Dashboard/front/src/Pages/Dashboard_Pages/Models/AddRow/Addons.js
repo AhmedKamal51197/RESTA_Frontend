@@ -113,7 +113,7 @@ function Addons() {
     const fetchCategories = async () => {
       try {
         const response = await instance.get('api/categories');
-        console.log(response.data)
+        // console.log(response.data)
         setCategories(response.data.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
