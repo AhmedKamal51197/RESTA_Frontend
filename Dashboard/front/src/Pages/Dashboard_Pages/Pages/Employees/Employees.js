@@ -1,5 +1,5 @@
 import "../DataTable.css";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Table } from "antd";
 
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -10,6 +10,8 @@ import { FiEdit } from "react-icons/fi";
 import { BsEye } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
+import instance from '../../../../axiosConfig/instance';
+
 
 const handleDisplayAddModel = () => {
   var AddTable = document.getElementById("AddTable");
@@ -33,91 +35,106 @@ const handleDelete = () => {
   });
 };
 
-const data = [
-  {
-    key: 1,
-    name: "name",
-    email: "email@gmail.com",
-    phone: "+5468453",
-    status: "inactive",
-  },
-  {
-    key: 2,
-    name: "name",
-    email: "email@gmail.com",
-    phone: "+5468453",
-    status: "active",
-  },
-];
-
-const columns = [
-  {
-    title: "NAME",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "EMAIL",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "PHONE",
-    dataIndex: "phone",
-    key: "phone",
-  },
-  {
-    title: "STATUS",
-    key: "status",
-    render: (text, item) =>
-      item.status === "active" ? (
-        <span style={{ "--c": "#35B263", "--bg": "#DCFCE7" }}>
-          {item.status}
-        </span>
-      ) : (
-        <span style={{ "--c": "#ff4f20", "--bg": "#ffe8e8" }}>
-          {item.status}
-        </span>
-      ),
-  },
-  {
-    title: "ACTION",
-    key: "action",
-    render: (text, item) => (
-      <>
-        <Link
-          to={`/admin/dashboard/employee/show/${item.key}`}
-          className="eyeIcon"
-          data-tooltip="view"
-          style={{ "--c": "#1772FF", "--bg": "#E2EDFB" }}
-        >
-          <BsEye />
-        </Link>
-        <Link
-          to="#"
-          className="editIcon"
-          data-tooltip="edit"
-          onClick={handleDisplayAddModel}
-          style={{ "--c": "#35B263", "--bg": "#DCFCE7" }}
-        >
-          <FiEdit />
-        </Link>
-        <Link
-          to="#"
-          className="trashIcon"
-          data-tooltip="delete"
-          onClick={() => handleDelete()}
-          style={{ "--c": "#F15353", "--bg": "#FECACA" }}
-        >
-          <BiTrash />
-        </Link>
-      </>
-    ),
-  },
-];
-
 export default function Employees() {
   const componentRef = useRef();
+  const [employee, setEmployee] = useState([]);
+
+  useEffect(() => {
+    fetchEmployee();
+  }, []);
+
+  const fetchEmployee = () => {
+    instance.get(`/api/admin/employees`, {
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("AdminToken")) //the token is a variable which holds the token
+      }
+    })
+      .then((res) => {
+
+        const employees = res.data.data;
+        if (Array.isArray(employees)) {
+          const employeeList = employees.filter(employee => employee.role !== "admin");
+          // console.log(employeeList);
+          setEmployee(employeeList);
+        } else {
+          console.error("Expected an array but got:", employees);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const columns = [
+    {
+      title: "NAME",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "EMAIL",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "PHONE",
+      dataIndex: "phone",
+      key: "phone",
+    },
+    {
+      title: "ROLE",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "STATUS",
+      key: "status",
+      render: (text, item) =>
+        item.status === 1 ? (
+          <span style={{ "--c": "#35B263", "--bg": "#DCFCE7" }}>
+            Active
+          </span>
+        ) : (
+          <span style={{ "--c": "#ff4f20", "--bg": "#ffe8e8" }}>
+            Inactive
+          </span>
+        ),
+    },
+    {
+      title: "ACTION",
+      key: "action",
+      render: (text, item) => (
+        <>
+          <Link
+            to={`/admin/dashboard/employee/show/${item.key}`}
+            className="eyeIcon"
+            data-tooltip="view"
+            style={{ "--c": "#1772FF", "--bg": "#E2EDFB" }}
+          >
+            <BsEye />
+          </Link>
+          <Link
+            to="#"
+            className="editIcon"
+            data-tooltip="edit"
+            onClick={handleDisplayAddModel}
+            style={{ "--c": "#35B263", "--bg": "#DCFCE7" }}
+          >
+            <FiEdit />
+          </Link>
+          <Link
+            to="#"
+            className="trashIcon"
+            data-tooltip="delete"
+            onClick={() => handleDelete()}
+            style={{ "--c": "#F15353", "--bg": "#FECACA" }}
+          >
+            <BiTrash />
+          </Link>
+        </>
+      ),
+    },
+  ];
   return (
     <div className="DataTable">
       {/* breadcrumb feature */}
@@ -127,7 +144,7 @@ export default function Employees() {
       <Filtration componentRef={componentRef} />
 
       <div className="tableItems" ref={componentRef}>
-        <Table columns={columns} dataSource={data} pagination={true} />
+        <Table columns={columns} dataSource={employee} pagination={true} />
       </div>
     </div>
   );

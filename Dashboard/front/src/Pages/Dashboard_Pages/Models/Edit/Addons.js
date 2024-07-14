@@ -84,7 +84,7 @@ function EditAddon({ id }) {
     formData.append("cost", addon.cost);
     formData.append("category_id", addon.category_id);
     formData.append("status", addon.status);
-    if (addon.image == null) {
+    if (addon.image) {
       formData.append("image", addon.image);
     }
   

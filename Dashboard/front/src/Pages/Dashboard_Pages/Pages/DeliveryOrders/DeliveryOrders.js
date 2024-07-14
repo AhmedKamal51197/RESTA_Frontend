@@ -27,9 +27,13 @@ export default function DeliveryOrders() {
   }, []);
 
   const fetchDeliveryOrders = () => {
-    instance.get("/api/admin/orders")
+    instance.get(`/api/admin/orders`, {
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("AdminToken")) //the token is a variable which holds the token
+      }
+    })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setDeliveryOrders(res.data.data);
       })
       .catch((err) => {

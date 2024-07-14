@@ -8,7 +8,6 @@ import { FiEdit } from "react-icons/fi";
 import { BsEye } from "react-icons/bs";
 import { MdQrCode2 } from "react-icons/md";
 import instance from "../../../../axiosConfig/instance";
-import qrCode from "../../../../assets/global/qrCode.png";
 import EditDiningTables from "../../Models/Edit/DiningTables"; 
 import { useSelector } from "react-redux";
 
@@ -101,7 +100,7 @@ export default function DiningTables() {
       render: (text, item) => (
         <>
           <a
-            href={qrCode}
+            href={`http://127.0.0.1:8000/storage/${item.qr_code}`}
             download
             className="qrCodeIcon"
             data-tooltip="download"

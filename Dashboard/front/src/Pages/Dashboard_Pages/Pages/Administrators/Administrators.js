@@ -24,13 +24,18 @@ export default function Administrators() {
   }, []);
 
   const fetchAdmin = () => {
-    instance.get("/api/admin/employees")
+    instance.get(`/api/admin/employees`, {
+      headers: {
+        Authorization: 'Bearer ' + JSON.parse(localStorage.getItem("AdminToken")) //the token is a variable which holds the token
+      }
+    })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         const employees = res.data.data;
 
+        setAdmin(employees);
         if (Array.isArray(employees)) {
-          const adminList = employees.filter(employee => employee.is_admin === 1);
+          const adminList = employees.filter(employee => employee.role === "admin");
           setAdmin(adminList);
         } else {
           console.error("Expected an array but got:", employees);
@@ -39,31 +44,6 @@ export default function Administrators() {
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You will not be able to recover the deleted record!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        instance.delete(`/api/admin/employees/${id}`)
-          .then(() => {
-            Swal.fire("Deleted!", "The admin has been deleted.", "success");
-            setAdmin(prevAdmins => prevAdmins.filter(admin => admin.id !== id));
-          })
-          .catch((error) => {
-            Swal.fire("Error!", "An error occurred while deleting the admin.", "error");
-            console.error("Error deleting admin:", error);
-          });
-      }
-    });
   };
 
   const columns = [
@@ -117,15 +97,6 @@ export default function Administrators() {
             style={{ "--c": "#35B263", "--bg": "#DCFCE7" }}
           >
             <FiEdit />
-          </Link>
-          <Link
-            to="#"
-            className="trashIcon"
-            data-tooltip="delete"
-            onClick={() => handleDelete(item.id)}
-            style={{ "--c": "#F15353", "--bg": "#FECACA" }}
-          >
-            <BiTrash />
           </Link>
         </>
       ),
