@@ -95,7 +95,7 @@ export default function Meals() {
       render: (text, item) => (
         <>
           <Link
-            to={`/admin/dashboard/meals/show/1`}
+            to={`/admin/dashboard/meals/show/${item.id}`}
             className="eyeIcon"
             data-tooltip="view"
             

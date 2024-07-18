@@ -20,6 +20,7 @@ import AddCustomersModel from "../../../Pages/Dashboard_Pages/Models/AddRow/Cust
 import AddEmployeesModel from "../../../Pages/Dashboard_Pages/Models/AddRow/Employees";
 import AddOffersModel from "../../../Pages/Dashboard_Pages/Models/AddRow/Offers";
 import AddExtrasModel from "../../../Pages/Dashboard_Pages/Models/AddRow/Extras";
+import AddCategoriesModel from "../../../Pages/Dashboard_Pages/Models/AddRow/Categories";
 import AddAddonsModel from "../../../Pages/Dashboard_Pages/Models/AddRow/Addons";
 
 //? Filtration
@@ -32,6 +33,7 @@ import FiltrationDeliveryOrders from "../../../Pages/Dashboard_Pages/Models/Filt
 import FiltrationTablesOrders from "../../../Pages/Dashboard_Pages/Models/Filtration/TablesOrders";
 import FiltrationOffers from "../../../Pages/Dashboard_Pages/Models/Filtration/Offers";
 import FiltrationExtras from "../../../Pages/Dashboard_Pages/Models/Filtration/Extras";
+import FiltrationCategories from "../../../Pages/Dashboard_Pages/Models/Filtration/Categories";
 import FiltrationAddons from "../../../Pages/Dashboard_Pages/Models/Filtration/Addons";
 import FiltrationTransactions from "../../../Pages/Dashboard_Pages/Models/Filtration/Transactions";
 import FiltrationSalesReports from "../../../Pages/Dashboard_Pages/Models/Filtration/SalesReports";
@@ -94,6 +96,9 @@ export default function Filtration({ componentRef }) {
   } else if (pathname === "extras") {
     ComponentFiltration = <FiltrationExtras />;
     ComponentAddModal = <AddExtrasModel />;
+      } else if (pathname === "categories") {
+    ComponentFiltration = <FiltrationCategories />;
+    ComponentAddModal = <AddCategoriesModel />;
   } else if (pathname === "addons") {
     ComponentFiltration = <FiltrationAddons />;
     ComponentAddModal = <AddAddonsModel />;
@@ -149,6 +154,7 @@ export default function Filtration({ componentRef }) {
           pathname === "employees" ||
           pathname === "offers" ||
           pathname === "extras" ||
+          pathname === "categories" ||
           pathname === "addons" ? (
             <Button
               type="primary"
