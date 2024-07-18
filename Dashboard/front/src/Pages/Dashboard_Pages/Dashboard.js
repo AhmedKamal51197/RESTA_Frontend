@@ -11,6 +11,7 @@ import { EditProfile } from "./Pages/Profile/EditProfile";
 import { ChangeEmail } from "./Pages/Profile/ChangeEmail";
 import { ChangePassword } from "./Pages/Profile/ChangePassword";
 import privateRoutes from "../Dashboard_Pages/store/privateRoutes";
+import NotFound from "./Pages/_404_page";
 
 function isAuth() {
   return localStorage.getItem("token") == "true";
@@ -70,6 +71,7 @@ export function Dashboard() {
                 />
               ))
             )}
+             <Route path="*" component={NotFound} />
           </Switch>
         </div>
       </div>
