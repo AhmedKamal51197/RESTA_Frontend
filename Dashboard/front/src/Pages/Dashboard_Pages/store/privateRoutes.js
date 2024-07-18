@@ -8,6 +8,7 @@ import { FaUserGroup } from "react-icons/fa6";
 
 //? Show pages
 import ShowMeal from "../Pages/Meals/Show";
+import ShowCategory from "../Pages/Categories/Show";
 import ShowDiningTable from "../Pages/DiningTables/Show";
 import ShowExtra from "../Pages/Extras/Show";
 import ShowAddon from "../Pages/Addons/Show";
@@ -25,6 +26,12 @@ const privateRoutes = [
     name: "show meal",
     icon: GiTemporaryShield,
     component: ShowMeal,
+  },
+  {
+    path: "/admin/dashboard/categories/show/:id",
+    name: "show category",
+    icon: GiTemporaryShield,
+    component: ShowCategory,
   },
   {
     path: "/admin/dashboard/dining-table/show/:id",

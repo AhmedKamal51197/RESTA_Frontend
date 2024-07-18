@@ -13,6 +13,7 @@ import { RiAlignItemBottomLine } from "react-icons/ri";
 //? Pages
 import Dashboard from "../Pages/Dashboard";
 import Meals from "../Pages/Meals/Meals";
+import Categories from "../Pages/Categories/Categories";
 import DiningTables from "../Pages/DiningTables/DiningTables";
 import Extras from "../Pages/Extras/Extras";
 import Addons from "../Pages/Addons/Addons";
@@ -47,6 +48,12 @@ const routes = [
         name: "Meals",
         icon: GiTemporaryShield,
         component: Meals,
+      },
+      {
+        path: "/admin/dashboard/categories",
+        name: "Categories",
+        icon: PiPicnicTableBold,
+        component: Categories,
       },
       {
         path: "/admin/dashboard/dining-tables",
