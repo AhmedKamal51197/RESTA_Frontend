@@ -66,12 +66,12 @@ const routes = [
         icon: PiPicnicTableBold,
         component: Addons,
       },
-      {
-        path: "/auth/passwordreset",
-        name: "reset",
-        icon: PiPicnicTableBold,
-        component: ResetPasswordAdmin,
-      }
+      // {
+      //   path: "/auth/passwordreset",
+      //   name: "reset",
+      //   icon: PiPicnicTableBold,
+      //   component: ResetPasswordAdmin,
+      // }
     ],
   },
   {

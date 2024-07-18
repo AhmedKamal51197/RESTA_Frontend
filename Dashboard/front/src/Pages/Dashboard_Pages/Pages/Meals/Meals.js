@@ -11,6 +11,7 @@ import { BsEye } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
 import instance from "../../../../axiosConfig/instance"
+import Item from "antd/es/list/Item";
 const handleDisplayAddModel = () => {
   var AddTable = document.getElementById("AddTable");
   if (AddTable) AddTable.classList.toggle("visible");
@@ -94,7 +95,7 @@ export default function Meals() {
       render: (text, item) => (
         <>
           <Link
-            to={`/admin/dashboard/meals/show/${item.key}`}
+            to={`/admin/dashboard/meals/show/1`}
             className="eyeIcon"
             data-tooltip="view"
             
@@ -115,7 +116,7 @@ export default function Meals() {
       ),
     },
   ];
-
+// console.log(Item);
   return (
     <div className="DataTable">
       {/* breadcrumb feature */}
