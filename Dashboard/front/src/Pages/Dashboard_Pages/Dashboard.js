@@ -40,7 +40,8 @@ export function Dashboard() {
               <ProtectedRoute
                 key={route.path}
                 path={route.path}
-                render={(props) => <route.component {...props} id={route.id} />}
+                // render={(props) => <route.component {...props} id={route.id} />}
+                component={route.component}
               />
             ))}
 
