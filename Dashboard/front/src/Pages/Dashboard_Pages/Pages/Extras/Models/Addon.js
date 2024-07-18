@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { FaCheckCircle } from "react-icons/fa";
 import { HiXMark } from "react-icons/hi2";
 
-export default function Variations() {
+export default function Addon() {
   return (
     <div className="SubModel">
       <Row gutter={16}>
@@ -12,27 +12,27 @@ export default function Variations() {
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#addVariations"
+            data-bs-target="#addAddon"
           >
-            add variations
+            add addon
           </button>
         </Col>
       </Row>
 
       <div
         class="modal fade"
-        id="addVariations"
+        id="addAddon"
         tabindex="-1"
         aria-hidden="true"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        aria-labelledby="addVariationsLabel"
+        aria-labelledby="addAddonLabel"
       >
         <div class="modal-dialog">
           <form class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="addVariationsLabel">
-                add variations
+              <h1 class="modal-title fs-5" id="addAddonLabel">
+                add addon
               </h1>
               <button
                 type="button"
